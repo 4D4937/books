@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV 表格查看器</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>CSV 表格查看器</h1>
+        
+        <div class="file-input">
+            <input type="file" id="csvFile" accept=".csv">
+        </div>
+
+        <div class="table-container">
+            <table id="csvTable">
+                <thead>
+                    <tr id="tableHeader"></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const rowsPerPage = 30;
+        let allData = [];
+
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            Papa.parse(file, {
+                complete: function(results) {
+                    allData = results.data;
+                    displayData(1);
+                    setupPagination();
+                }
+            });
+        });
+
+        function displayData(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageData = allData.slice(start, end);
+            
+            const tableHeader = document.getElementById('tableHeader');
+            const tableBody = document.getElementById('tableBody');
+            
+            // 清空现有内容
+            tableHeader.innerHTML = '';
+            tableBody.innerHTML = '';
+            
+            // 添加表头
+            if (allData.length > 0) {
+                allData[0].forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    tableHeader.appendChild(th);
+                });
+            }
+            
+            // 添加数据行
+            pageData.slice(1).forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function setupPagination() {
+            const totalPages = Math.ceil((allData.length - 1) / rowsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    displayData(currentPage);
+                });
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                pagination.appendChild(button);
+            }
+        }
+    </script>
+</body>
+</html>
