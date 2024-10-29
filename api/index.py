@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 import os
 from dotenv import load_dotenv
-import ssl
+import tempfile
 
 load_dotenv()
 
@@ -43,6 +43,16 @@ QjdwGNt0qSl/aL3xP7Np87JplOUJ3/8JXOi3lUoYtrxTOPzP4ueGA7Dehq8SLFWd
 Ja/dEKG9URGl90INY96z+ITS3KBq0mYeT+7JY1ey4kqzk9V0rg==
 -----END CERTIFICATE-----"""
 
+def get_ssl_cert_path():
+    # 创建临时文件保存证书
+    cert_file = tempfile.NamedTemporaryFile(delete=False)
+    cert_file.write(CA_CERT.encode())
+    cert_file.close()
+    return cert_file.name
+
+# 获取证书路径
+ssl_cert_path = get_ssl_cert_path()
+
 # 数据库配置
 db_config = {
     "host": os.getenv("DB_HOST"),
@@ -50,8 +60,7 @@ db_config = {
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
     "port": int(os.getenv("DB_PORT")),
-    "ssl_ca": CA_CERT,  # 使用 ssl_ca 而不是 ssl
-    "ssl_verify_cert": True
+    "ssl_ca": ssl_cert_path
 }
 
 @app.get("/api/test")
@@ -80,3 +89,11 @@ async def get_books():
         return {"status": "success", "data": books}
     except Exception as e:
         return {"status": "error", "message": str(e)}
+
+# 清理函数
+@app.on_event("shutdown")
+async def cleanup():
+    try:
+        os.unlink(ssl_cert_path)
+    except:
+        pass
