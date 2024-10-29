@@ -77,6 +77,23 @@ async def test_connection():
             "message": f"连接错误: {str(e)}"
         }
 
+@app.get("/api/tables")
+async def get_tables():
+    """获取所有表名"""
+    try:
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+        cursor.execute("SHOW TABLES")
+        tables = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return {
+            "status": "success",
+            "tables": [table[0] for table in tables]
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 @app.get("/api/books")
 async def get_books():
     try:
