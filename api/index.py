@@ -16,13 +16,13 @@ app.add_middleware(
 )
 
 # 数据库配置
+# 数据库配置
 db_config = {
     "host": os.getenv("DB_HOST"),
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
-    "port": os.getenv("DB_PORT"),
-    "ssl_ca": os.getenv("SSL_CA"),  # CA证书内容
+    "port": int(os.getenv("DB_PORT")),
     "ssl_verify_cert": True
 }
 
@@ -38,4 +38,27 @@ async def test_connection():
         return {
             "status": "error", 
             "message": f"连接错误: {str(e)}"
+        }
+
+@app.get("/api/books")
+async def get_books():
+    try:
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor(dictionary=True)
+        
+        # 获取前10行数据
+        cursor.execute("SELECT * FROM books LIMIT 10")
+        books = cursor.fetchall()
+        
+        cursor.close()
+        conn.close()
+        
+        return {
+            "status": "success",
+            "data": books
+        }
+    except Exception as e:
+        return {
+            "status": "error", 
+            "message": str(e)
         }
