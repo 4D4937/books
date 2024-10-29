@@ -21,7 +21,7 @@ db_config = {
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
-    "port": int(os.getenv("DB_PORT", "3306")),
+    "port": os.getenv("DB_PORT"),
     "ssl_ca": os.getenv("SSL_CA"),  # CA证书内容
     "ssl_verify_cert": True
 }
