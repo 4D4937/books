@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 import os
 from dotenv import load_dotenv
+import ssl
 
 load_dotenv()
 
@@ -49,9 +50,8 @@ db_config = {
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
     "port": int(os.getenv("DB_PORT")),
-    "ssl": {
-        "ca": CA_CERT
-    }
+    "ssl_ca": CA_CERT,  # 使用 ssl_ca 而不是 ssl
+    "ssl_verify_cert": True
 }
 
 @app.get("/api/test")
