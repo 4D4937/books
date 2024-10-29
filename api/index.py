@@ -23,7 +23,9 @@ db_config = {
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
     "port": int(os.getenv("DB_PORT")),
-    "ssl_verify_cert": True
+    "ssl": {
+        "ca": os.getenv("SSL_CA")  # CA证书内容
+    }
 }
 
 @app.get("/api/test")
