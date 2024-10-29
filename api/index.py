@@ -63,6 +63,11 @@ db_config = {
     "ssl_ca": ssl_cert_path
 }
 
+@app.get("/")
+async def read_root():
+    return {"message": "hello"}
+
+
 @app.get("/api/test")
 async def test_connection():
     try:
