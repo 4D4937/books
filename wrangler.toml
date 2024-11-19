@@ -1,6 +1,6 @@
 name = "sitemap"
 main = "worker.js"
-compatibility_date = "2024-11-19
+compatibility_date = "2024-11-19"
 
 # D1 数据库配置
 [[d1_databases]]
