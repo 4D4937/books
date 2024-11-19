@@ -1,5 +1,6 @@
 name = "sitemap"
 main = "index.js"  # 入口文件
+compatibility_date = "2024-11-19"
 
 [build]
 command = "npm install"
@@ -8,5 +9,3 @@ command = "npm install"
 bindings = [
   { name = "BOOKS_D1", binding = "D1Database", type = "d1", database_id = "books-data" }
 ]
-
-compatibility_date = "2024-11-19"
