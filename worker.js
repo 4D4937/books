@@ -5,7 +5,7 @@ export default {
       const path = url.pathname;
       
       // 检查路径格式
-      if (!path.endsWith('/sitemap.xml') && !path.match(/\/sitemap-\d+\.xml$/)) {
+      if (!path.endsWith('/') && !path.match(/\/sitemap-\d+\.xml$/)) {
         return new Response('Invalid sitemap URL format', { 
           status: 400,
           headers: { 'Content-Type': 'text/plain' }
@@ -53,7 +53,7 @@ export default {
         
         for (let i = 1; i <= sitemapCount; i++) {
           mainSitemap += `  <sitemap>\n`;
-          mainSitemap += `    <loc>https://${url.hostname}/sitemap-${i}.xml</loc>\n`;
+          mainSitemap += `    <loc>https://liberpdf.top/sitemap-${i}.xml</loc>\n`;
           mainSitemap += `  </sitemap>\n`;
         }
         
@@ -107,9 +107,7 @@ export default {
       
       for (const book of books.results) {
         subSitemap += `  <url>\n`;
-        subSitemap += `    <loc>https://${url.hostname}/book/${book.id}</loc>\n`;
-        subSitemap += `    <changefreq>weekly</changefreq>\n`;
-        subSitemap += `    <priority>0.8</priority>\n`;
+        subSitemap += `    <loc>https://liberpdf.top/book/${book.id}</loc>\n`;
         subSitemap += `  </url>\n`;
       }
       
