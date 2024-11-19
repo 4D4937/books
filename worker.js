@@ -1,3 +1,6 @@
+import JSZip from 'jszip';
+
+
 export default {
   async fetch(request, env, ctx) {
     try {
