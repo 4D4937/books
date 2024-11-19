@@ -9,4 +9,4 @@ bindings = [
   { name = "BOOKS_D1", binding = "D1Database", type = "d1", database_id = "books-data" }
 ]
 
-compatibility_date = "2024-11-19"  # 添加兼容性日期
+compatibility_date = "2024-11-19"
