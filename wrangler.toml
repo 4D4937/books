@@ -8,5 +8,5 @@ binding = "BOOKS_D1"
 database_name = "books_data"
 database_id = "336d7d02-efee-48a9-bb9d-8bcfe4d974fa"
 
-[dependencies]
-jszip = "3.10.1"
+[build]
+command = "npm install jszip"
