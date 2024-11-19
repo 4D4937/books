@@ -5,7 +5,7 @@ export default {
       const path = url.pathname;
       
       // 检查路径格式
-      if (!path.endsWith('/') && !path.match(/\/sitemap-\d+\.xml$/)) {
+      if (!path.endsWith('sitemap.xml') && !path.match(/\/sitemap-\d+\.xml$/)) {
         return new Response('Invalid sitemap URL format', { 
           status: 400,
           headers: { 'Content-Type': 'text/plain' }
