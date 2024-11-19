@@ -1,5 +1,5 @@
 name = "sitemap"
-main = "index.js"  # 确保指定了入口文件
+main = "index.js"  # 入口文件
 
 [build]
 command = "npm install"
