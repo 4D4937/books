@@ -1,5 +1,4 @@
 name = "sitemap-generator"
-type = "module"  # 确保使用模块格式
 
 [build]
 command = "npm install"
@@ -8,3 +7,6 @@ command = "npm install"
 bindings = [
   { name = "BOOKS_D1", binding = "D1Database", type = "d1", database_id = "books-data" }
 ]
+
+# Specify the entry point (script file)
+main = "index.js"  # 或者根据你的文件修改为正确的路径
