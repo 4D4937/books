@@ -7,5 +7,5 @@ command = "npm install"
 
 [env.production]
 bindings = [
-  { name = "BOOKS_D1", binding = "D1Database", type = "d1", database_id = "books-data" }
+  { name = "BOOKS_D1", binding = "books-data", type = "d1", database_id = "336d7d02-efee-48a9-bb9d-8bcfe4d974fa" }
 ]
