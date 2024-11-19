@@ -1,4 +1,4 @@
-name = "sitemap-generator"
+name = "sitemap"
 main = "index.js"  # 确保指定了入口文件
 
 [build]
