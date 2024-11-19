@@ -49,8 +49,6 @@ export default {
         for (const book of books.results) {
           subSitemap += `  <url>\n`;
           subSitemap += `    <loc>${baseUrl}/book/${book.id}</loc>\n`;
-          subSitemap += `    <changefreq>monthly</changefreq>\n`;
-          subSitemap += `    <priority>0.8</priority>\n`;
           subSitemap += `  </url>\n`;
         }
         
