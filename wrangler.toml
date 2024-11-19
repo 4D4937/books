@@ -1,11 +1,10 @@
 name = "sitemap"
-main = "index.js"  # 入口文件
-compatibility_date = "2024-11-19"
+main = "worker.js"
+compatibility_date = "2024-11-19
 
-[build]
-command = "npm install"
+# D1 数据库配置
+[[d1_databases]]
+binding = "BOOKS_D1"
+database_name = "books_data"
+database_id = "336d7d02-efee-48a9-bb9d-8bcfe4d974fa"
 
-[env.production]
-bindings = [
-  { name = "BOOKS_D1", binding = "books-data", type = "d1", database_id = "336d7d02-efee-48a9-bb9d-8bcfe4d974fa" }
-]
